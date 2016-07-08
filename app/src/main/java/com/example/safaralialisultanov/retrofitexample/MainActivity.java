@@ -4,26 +4,14 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.internal.Streams;
+import com.example.safaralialisultanov.retrofitexample.response.Response;
 
-import java.io.IOException;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<GithubUser> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Response> {
 
     final String LOG_TAG = "myLogs";
     static final int LOADER_ID = 1;
@@ -65,9 +53,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     @Override
-    public Loader<GithubUser> onCreateLoader(int id, Bundle args) {
+    public Loader<Response> onCreateLoader(int id, Bundle args) {
 
-        Loader<GithubUser> loader = null;
+        Loader<Response> loader = null;
         if (id == LOADER_ID) {
             loader = new HTTPLoader(this, args);
             Log.e(LOG_TAG, "onCreateLoader: " + loader.hashCode());
@@ -76,13 +64,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onLoadFinished(Loader<GithubUser> loader, GithubUser result) {
-        Log.e(LOG_TAG, "onLoaderFinished for loader " + loader.hashCode() + ", result = " + result.login);
-        txbHello.setText(result.login);
+    public void onLoadFinished(Loader<Response> loader, Response result) {
+        Log.e(LOG_TAG, "onLoaderFinished for loader " + loader.hashCode());
+        int id = loader.getId();
+        if (id == LOADER_ID) {
+            GithubUser data = result.getTypedAnswer();
+            txbHello.setText("LOGIN: " + data.getLogin());
+        }
     }
 
     @Override
-    public void onLoaderReset(Loader<GithubUser> loader) {
+    public void onLoaderReset(Loader<Response> loader) {
         Log.e(LOG_TAG, "onLoaderReset for loader " + loader.hashCode());
     }
 }

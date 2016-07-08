@@ -1,4 +1,6 @@
-package com.example.safaralialisultanov.retrofitexample;
+package com.example.safaralialisultanov.retrofitexample.response;
+
+import com.example.safaralialisultanov.retrofitexample.GithubUser;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
