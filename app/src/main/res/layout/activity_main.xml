@@ -12,11 +12,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/txbHello"
         android:text="Hello World!" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Load Data"
+        android:layout_below="@id/txbHello"
         android:onClick="onClick"  />
 </RelativeLayout>
