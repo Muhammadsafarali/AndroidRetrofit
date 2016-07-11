@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         int id = loader.getId();
         if (id == LOADER_ID) {
             GithubUser data = result.getTypedAnswer();
-            txbHello.setText("LOGIN: " + data.getLogin());
+            if (data != null)
+                txbHello.setText("LOGIN: " + data.getLogin());
         }
     }
 
